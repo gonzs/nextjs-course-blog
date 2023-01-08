@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Date from "../components/date";
@@ -6,6 +7,7 @@ import { getSortedPostsData } from "../lib/posts";
 import utilStyles from "../styles/utils.module.css";
 
 export default function Home({ allPostsData = [] }) {
+  const [inputField, setInputField] = useState("");
   return (
     <Layout home>
       <Head>
@@ -17,6 +19,23 @@ export default function Home({ allPostsData = [] }) {
           (This is a sample website - you’ll be building a site like this on{" "}
           <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
         </p>
+      </section>
+
+      <section className={utilStyles.searchContainer}>
+        <input
+          className={utilStyles.input}
+          type="text"
+          id="search"
+          value={inputField?.target?.value}
+          onChange={setInputField}
+          placeholder="Type your search here"
+        />
+        <Link
+          href={`/search?q=${inputField?.target?.value}`}
+          className={utilStyles.searchButton}
+        >
+          Search
+        </Link>
       </section>
 
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
